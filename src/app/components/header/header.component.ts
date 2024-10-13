@@ -1,5 +1,7 @@
 import { GoogleSigninButtonModule, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { Component } from '@angular/core';
+import { UserService } from '../../services/user.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +15,7 @@ export class HeaderComponent {
   loggedIn: boolean = false;
 
 
-  constructor(private socialAuthServiceConfig: SocialAuthService) { }
+  constructor(private socialAuthServiceConfig: SocialAuthService, private userService:UserService) { }
 
   ngOnInit() {
     //authState is a custom observable that will run again any time changes are noticed.
@@ -21,6 +23,10 @@ export class HeaderComponent {
       this.user = userResponse;
       //if login fails, it will return null.
       this.loggedIn = (userResponse != null);
+      if(this.loggedIn){
+        //adds user if not in db
+        this.addUser();
+      }
     });
   }
   //login component doesn't account for logging out.
@@ -28,5 +34,15 @@ export class HeaderComponent {
     this.socialAuthServiceConfig.signOut();
   }
 
+  //adds user if not in db
+  addUser():void{
+    let newUser: User = {
+      username: this.user.name,
+      pfp: this.user.photoUrl,
+      googleId: this.user.id
+    };
+
+    this.userService.addUser(newUser).subscribe(response => console.log(response));
+  }
 
 }
