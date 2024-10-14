@@ -7,11 +7,12 @@ import { Category } from '../../models/category';
 import { UserService } from '../../services/User/user.service';
 import { User } from '../../models/user';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [TicketFormComponent, FormsModule],
+  imports: [TicketFormComponent, FormsModule, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

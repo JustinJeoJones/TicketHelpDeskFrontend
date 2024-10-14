@@ -11,8 +11,8 @@ export class CommentsService {
 
   baseUrl: string = environment.apiDomain + "/Comments";
   constructor(private http:HttpClient) { }
-  getAllComments():Observable<Comment[]>{
-    return this.http.get<Comment[]>(this.baseUrl);
+  getAllComments(ticketId:number):Observable<Comment[]>{
+    return this.http.get<Comment[]>(this.baseUrl + `?ticketId=${ticketId}`);
   }
   getCommentById(id:string):Observable<Comment>{
     return this.http.get<Comment>(this.baseUrl + `/${id}`);

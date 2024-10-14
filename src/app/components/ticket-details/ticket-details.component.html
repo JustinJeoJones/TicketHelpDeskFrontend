@@ -1,0 +1,22 @@
+<h1>{{ displayTicket.problem }}</h1>
+<p>User: {{ displayTicket.author.username }}</p>
+<p>Resolved: {{ displayTicket.completed }}</p>
+
+<br />
+<input type="text" [(ngModel)]="displayTicket.resolution" />
+<button [disabled]="displayTicket.resolution == ''">Resolved</button>
+<br />
+<input type="text" [(ngModel)]="commentForm.message" />
+<button (click)="addComment()">Send Comment</button>
+<br />
+@if (comments.length != 0) {
+    <ul>
+        @for (c of comments; track c.id) {
+            <li>{{c.author.username}}: {{ c.message }} | {{ c.date | date:'short' }}</li>
+        }
+    </ul>
+    
+}
+@else {
+    <p>No one has commented yet.</p>
+}

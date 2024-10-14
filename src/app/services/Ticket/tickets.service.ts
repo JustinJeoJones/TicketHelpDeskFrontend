@@ -14,7 +14,7 @@ export class TicketsService {
   getAllTickets():Observable<Ticket[]>{
     return this.http.get<Ticket[]>(this.baseUrl);
   }
-  getTicketById(id:string):Observable<Ticket>{
+  getTicketById(id:number):Observable<Ticket>{
     return this.http.get<Ticket>(this.baseUrl + `/${id}`);
   }
   addTicket(t:Ticket):Observable<Ticket>{
