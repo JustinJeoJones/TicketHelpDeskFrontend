@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    apiDomain: "https://localhost:7291/api"
+    apiDomain: "https://ticketbackend20241011225732.azurewebsites.net/api"
   };
