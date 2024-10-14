@@ -1,35 +1,60 @@
 @if (getRole()?.roleName == "Admin") {
 <h1>Admin Panel</h1>
+
+@if (targetedUser != null) {
+    <div>
+        <h2>{{ targetedUser.username}}</h2>
+        <button (click)="updateRole(targetedUser, 1)">Set {{ targetedUser.username }} to User</button>
+        <button (click)="updateRole(targetedUser, 3)">Set {{ targetedUser.username }} to IT</button>
+        <button (click)="updateRole(targetedUser, 2)">Set {{ targetedUser.username }} to Admin</button>
+        <button (click)="updateRole(targetedUser, 4)">Set {{ targetedUser.username }} to Inactive</button>
+        <button (click)="targetUser(null)">Close</button>
+    </div>
+}
+
 <h2>Users</h2>
 <input type="text" [(ngModel)]="filter" />
 
 <table class="table">
-    <thead>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Role</th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-    </thead>
-    <tbody>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Role</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
     @for (u of getFiltered(); track u.googleId) {
-        <tr>
-            <td>{{ u.googleId }}</td>
-            <td>{{ u.username }}</td>
-            <td>{{ u.role?.roleName }}</td>
-            <td><button (click)="updateRole(u, 1)">Set {{ u.username }} to User</button></td>
-            <td><button (click)="updateRole(u, 3)">Set {{ u.username }} to IT</button></td>
-            <td><button (click)="updateRole(u, 2)">Set {{ u.username }} to Admin</button></td>
-            <td><button (click)="updateRole(u, 4)">Set {{ u.username }} to Inactive</button></td>
-        </tr>
-        } 
-    </tbody>
+    <tr>
+      <td>{{ u.googleId }}</td>
+      <td>{{ u.username }}</td>
+      <td>{{ u.role?.roleName }}</td>
+      <td><button (click)="targetUser(u)">change {{ u.username}} Role</button></td>
+    </tr>
+    }
+  </tbody>
 </table>
 
+} @else {
+<h1>Please return to the Home page</h1>
+}
 
-}
-@else {
-    <h1>Please return to the Home page</h1>
-}
+
+
+<!-- <td class="col-1">
+    <button (click)="updateRole(u, 1)">Set {{ u.username }} to User</button>
+  </td>
+  <td class="col-1">
+    <button (click)="updateRole(u, 3)">Set {{ u.username }} to IT</button>
+  </td>
+  <td class="col-1">
+    <button (click)="updateRole(u, 2)">
+      Set {{ u.username }} to Admin
+    </button>
+  </td>
+  <td class="col-1">
+    <button (click)="updateRole(u, 4)">
+      Set {{ u.username }} to Inactive
+    </button>
+  </td> -->

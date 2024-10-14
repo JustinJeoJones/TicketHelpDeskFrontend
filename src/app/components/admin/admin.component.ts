@@ -16,6 +16,7 @@ export class AdminComponent {
   constructor(private userService:UserService, private roleService: RolesService){}
   allUsers:User[] = [];
   filter:string = "";
+  targetedUser:User | null = null; 
 
   ngOnInit(){
     this.getUsers();
@@ -38,5 +39,9 @@ export class AdminComponent {
     this.userService.updateUser(u).subscribe(response => {
       this.getUsers();
     });
+  }
+
+  targetUser(u:User | null){
+    this.targetedUser = u;
   }
 }
