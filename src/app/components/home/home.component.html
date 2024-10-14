@@ -2,10 +2,16 @@
 <br />
 <button (click)="toggleDisplayTicket()">Toggle completed tickets</button>
 
-
-@for (t of getTicketsByPriority(); track t.id) {
-    @if(displayTicket(t)){
-        <h1>{{t.author.username}}: {{ t.problem }}</h1>
-        <p>{{ t.priority }}</p>
+@for (c of allCategories; track c.id) {
+    <h2>{{ c.category1 }}</h2>
+    @if(getTicketsByCategories(c.category1) != null){
+        @for (t of getTicketsByPriority(getTicketsByCategories(c.category1)); track t.id) {
+            @if(displayTicket(t)){
+                <h1>{{t.author.username}}: {{ t.problem }}</h1>
+                <p>{{ t.priority }}</p>
+            }
+        }
     }
+    
 }
+

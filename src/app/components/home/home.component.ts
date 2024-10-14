@@ -36,8 +36,8 @@ export class HomeComponent {
     })
   }
 
-  getTicketsByPriority():Ticket[]{
-    return this.allTickets.sort((a, b) => {
+  getTicketsByPriority(tickets:Ticket[]):Ticket[]{
+    return tickets.sort((a, b) => {
       return this.priorityOrder.indexOf(a.priority) - this.priorityOrder.indexOf(b.priority);
     });
   }
@@ -47,6 +47,10 @@ export class HomeComponent {
       console.log(response);
       this.allCategories = response;
     })
+  }
+
+  getTicketsByCategories(category:string):Ticket[]{
+    return this.allTickets.filter(t => t.category.category1.toLowerCase() === category.toLowerCase())
   }
 
   getCurrentUser():User|null{
