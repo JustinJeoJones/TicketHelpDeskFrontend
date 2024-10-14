@@ -1,3 +1,8 @@
 <app-header></app-header>
 
-<router-outlet></router-outlet>
+@if (loggedIn) {
+  <router-outlet></router-outlet>
+}
+@else {
+  <h1>Please Login</h1>
+}

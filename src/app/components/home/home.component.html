@@ -1,1 +1,5 @@
-<p>home works!</p>
+<app-ticket-form [categories]="allCategories" [user]="getCurrentUser()" (emitTicket)="addTicket($event)"></app-ticket-form>
+@for (t of getTicketsByPriority(); track t.id) {
+    <h1>{{t.author.username}}: {{ t.problem }}</h1>
+    <p>{{ t.priority }}</p>
+}

@@ -1,7 +1,8 @@
 import { GoogleSigninButtonModule, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { Component } from '@angular/core';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../services/User/user.service';
 import { User } from '../../models/user';
+import { Role } from '../../models/role';
 
 @Component({
   selector: 'app-header',
@@ -42,7 +43,13 @@ export class HeaderComponent {
       googleId: this.user.id
     };
 
-    this.userService.addUser(newUser).subscribe(response => console.log(response));
+    this.userService.addUser(newUser).subscribe(response => {
+      console.log(response);
+      this.userService.currentUser = response;
+    });
   }
 
+  getRole():Role|undefined{
+    return this.userService.getCurrentUserRole();
+  }
 }
