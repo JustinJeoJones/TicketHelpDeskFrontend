@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
+import { UserService } from './services/User/user.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  constructor(private socialAuthServiceConfig: SocialAuthService){}
+  constructor(private socialAuthServiceConfig: SocialAuthService, private userService: UserService){}
   title = 'helpdeskFrontend';
   user: SocialUser = {} as SocialUser;
   loggedIn: boolean = false;
@@ -22,5 +23,9 @@ export class AppComponent {
       //if login fails, it will return null.
       this.loggedIn = (userResponse != null);
     });
+  }
+
+  isActiveUser():boolean{
+    return this.userService.getCurrentUserRole()?.roleName != "Inactive";
   }
 }

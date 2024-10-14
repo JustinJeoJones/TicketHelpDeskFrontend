@@ -1,14 +1,28 @@
 <h1>{{ displayTicket.problem }}</h1>
 <p>User: {{ displayTicket.author.username }}</p>
-<p>Resolved: {{ displayTicket.completed }}</p>
+@if (displayTicket.completed == false) {
+    <p>Not resolved yet</p>
+}
+@else {
+    <p>Resolved by {{ displayTicket.resolver.username }}</p>
+    <p>Resolution: {{ displayTicket.resolution }}</p>
+}
+
+
 
 <br />
-<input type="text" [(ngModel)]="displayTicket.resolution" />
-<button [disabled]="displayTicket.resolution == ''">Resolved</button>
-<br />
-<input type="text" [(ngModel)]="commentForm.message" />
-<button (click)="addComment()">Send Comment</button>
-<br />
+@if(canUserHelp()){
+    <input type="text" [(ngModel)]="displayTicket.resolution" />
+    <button (click)="setResolved()" [disabled]="displayTicket.resolution == ''">Resolved</button>
+    <br />
+    <input type="text" [(ngModel)]="commentForm.message" />
+    <button (click)="addComment()">Send Comment</button>
+    <br />
+}
+@else {
+    <p>Current User may not help on this ticket</p>
+}
+
 @if (comments.length != 0) {
     <ul>
         @for (c of comments; track c.id) {

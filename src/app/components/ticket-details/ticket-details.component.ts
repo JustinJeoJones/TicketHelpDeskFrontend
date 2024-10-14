@@ -7,6 +7,7 @@ import { Comment } from '../../models/comment';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/User/user.service';
 import { DatePipe } from '@angular/common';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-ticket-details',
@@ -54,8 +55,22 @@ export class TicketDetailsComponent {
 
   setResolved(){
     this.displayTicket.completed = true;
+    this.displayTicket.resolverId = this.userService.currentUser?.googleId!;
     this.ticketService.updateTicket(this.displayTicket).subscribe(response => {
       console.log(response);
     })
+  }
+
+  canUserHelp():boolean{
+    let current:User = this.userService.currentUser!;
+    if(current?.googleId == this.displayTicket.authorId){
+      return true;
+    }
+    else if(current.role?.roleName == "Admin" || current.role?.roleName == "IT"){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 }

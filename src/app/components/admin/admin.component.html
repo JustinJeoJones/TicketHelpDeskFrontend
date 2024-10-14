@@ -1,0 +1,18 @@
+@if (getRole()?.roleName == "Admin") {
+<h1>Admin Panel</h1>
+<h2>Users</h2>
+<input type="text" [(ngModel)]="filter" />
+@for (u of getFiltered(); track u.googleId) {
+<p>
+    Id:{{ u.googleId }} | Name: {{ u.username }} | Role: {{ u.role?.roleName }}
+</p>
+<button (click)="updateRole(u, 1)">Set {{ u.username }} to User</button>
+<button (click)="updateRole(u, 3)">Set {{ u.username }} to IT</button>
+<button (click)="updateRole(u, 2)">Set {{ u.username }} to Admin</button>
+<button (click)="updateRole(u, 4)">Set {{ u.username }} to Inactive</button>
+} 
+
+}
+@else {
+    <h1>Please return to the Home page</h1>
+}

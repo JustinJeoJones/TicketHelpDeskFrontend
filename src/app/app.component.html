@@ -1,7 +1,11 @@
 <app-header></app-header>
 
-@if (loggedIn) {
+@if (loggedIn && isActiveUser()) {
   <router-outlet></router-outlet>
+}
+@else if(loggedIn &&isActiveUser() == false) {
+  <h1>You are no longer allowed access to the ticket help desk.</h1>
+  <p>If this is a mistake, please reach out to a manager</p>
 }
 @else {
   <h1>Please Login</h1>

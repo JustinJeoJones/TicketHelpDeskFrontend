@@ -33,14 +33,23 @@ export class HomeComponent {
   getTickets(){
     this.ticketService.getAllTickets().subscribe(response => {
       this.allTickets = response;
-      console.log(response);
+        console.log(response);
+      
+      
     })
   }
 
   getTicketsByPriority(tickets:Ticket[]):Ticket[]{
-    return tickets.sort((a, b) => {
-      return this.priorityOrder.indexOf(a.priority) - this.priorityOrder.indexOf(b.priority);
-    });
+    if(this.isItOrAdmin()){
+      return tickets.sort((a, b) => {
+        return this.priorityOrder.indexOf(a.priority) - this.priorityOrder.indexOf(b.priority);
+      });
+    }
+    else{
+      return tickets.filter(t => t.authorId == this.getCurrentUser()?.googleId).sort((a, b) => {
+        return this.priorityOrder.indexOf(a.priority) - this.priorityOrder.indexOf(b.priority);
+      });
+    }
   }
 
   getCategories(){
@@ -75,5 +84,15 @@ export class HomeComponent {
 
   toggleDisplayTicket(){
     this.showAll = !this.showAll;
+  }
+
+  isItOrAdmin():boolean{
+    let role: string = this.userService.getCurrentUserRole()?.roleName!;
+    if(role == "Admin" || role == "IT"){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 }
