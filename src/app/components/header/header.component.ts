@@ -15,6 +15,7 @@ import { RouterLink } from '@angular/router';
 export class HeaderComponent {
   user: SocialUser = {} as SocialUser;
   loggedIn: boolean = false;
+  displayNavMobile: boolean = false;
 
 
   constructor(private socialAuthServiceConfig: SocialAuthService, private userService:UserService) { }
@@ -52,5 +53,9 @@ export class HeaderComponent {
 
   getRole():Role|undefined{
     return this.userService.getCurrentUserRole();
+  }
+
+  toggleNav(){
+    this.displayNavMobile = !this.displayNavMobile;
   }
 }
