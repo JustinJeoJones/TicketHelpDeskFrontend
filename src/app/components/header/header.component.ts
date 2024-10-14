@@ -42,7 +42,8 @@ export class HeaderComponent {
     let newUser: User = {
       username: this.user.name,
       pfp: this.user.photoUrl,
-      googleId: this.user.id
+      googleId: this.user.id,
+      roleId: 1
     };
 
     this.userService.addUser(newUser).subscribe(response => {
