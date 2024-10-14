@@ -3,11 +3,12 @@ import { Component } from '@angular/core';
 import { UserService } from '../../services/User/user.service';
 import { User } from '../../models/user';
 import { Role } from '../../models/role';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [GoogleSigninButtonModule],
+  imports: [GoogleSigninButtonModule, RouterLink],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })

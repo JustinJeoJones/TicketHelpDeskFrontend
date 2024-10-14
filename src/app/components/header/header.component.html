@@ -5,6 +5,7 @@
   @else {
     <p>Welcome {{ user.name }}</p>
     <p>Role: {{getRole()?.roleName}}</p>
+    
     <!-- calls our log out method -->
     <button class="btn btn-outline-dark" (click)="signOut()">
       Sign Out

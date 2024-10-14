@@ -1,5 +1,11 @@
 <app-ticket-form [categories]="allCategories" [user]="getCurrentUser()" (emitTicket)="addTicket($event)"></app-ticket-form>
+<br />
+<button (click)="toggleDisplayTicket()">Toggle completed tickets</button>
+
+
 @for (t of getTicketsByPriority(); track t.id) {
-    <h1>{{t.author.username}}: {{ t.problem }}</h1>
-    <p>{{ t.priority }}</p>
+    @if(displayTicket(t)){
+        <h1>{{t.author.username}}: {{ t.problem }}</h1>
+        <p>{{ t.priority }}</p>
+    }
 }

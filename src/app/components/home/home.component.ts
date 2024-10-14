@@ -6,11 +6,12 @@ import { CategoriesService } from '../../services/Category/categories.service';
 import { Category } from '../../models/category';
 import { UserService } from '../../services/User/user.service';
 import { User } from '../../models/user';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [TicketFormComponent],
+  imports: [TicketFormComponent, FormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -19,6 +20,7 @@ export class HomeComponent {
   allTickets: Ticket[] = [];
   allCategories: Category[] = [];
   priorityOrder: string[] = ["Critical", "High", "Medium", "Low"];
+  showAll: boolean = false;
 
   constructor(private userService: UserService, private ticketService: TicketsService, private categoryService:CategoriesService){}
 
@@ -55,5 +57,18 @@ export class HomeComponent {
     this.ticketService.addTicket(t).subscribe(response => {
       this.getTickets();
     });
+  }
+
+  displayTicket(t:Ticket):boolean{
+    if(this.showAll == true){
+      return true;
+    }
+    else{
+      return t.completed == false;
+    }
+  }
+
+  toggleDisplayTicket(){
+    this.showAll = !this.showAll;
   }
 }
