@@ -2,7 +2,7 @@
   <a class="navbar-brand" routerLink="/">Ticket Helpdesk</a>
   @if (!loggedIn) {
     <!-- Custom component that handles log in -->
-    <asl-google-signin-button></asl-google-signin-button>
+    <asl-google-signin-button type='icon' size='medium'></asl-google-signin-button>
   }
   @else {
     <button class="navbar-toggler" (click)="toggleNav()" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
