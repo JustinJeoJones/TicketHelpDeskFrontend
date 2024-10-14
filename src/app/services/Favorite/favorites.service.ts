@@ -11,8 +11,8 @@ export class FavoritesService {
 
   baseUrl: string = environment.apiDomain + "/Favorites";
   constructor(private http:HttpClient) { }
-  getAllFavorites():Observable<Favorite[]>{
-    return this.http.get<Favorite[]>(this.baseUrl);
+  getAllFavorites(googleId:string):Observable<Favorite[]>{
+    return this.http.get<Favorite[]>(this.baseUrl+`?googleId=${googleId}`);
   }
   getFavoriteById(id:string):Observable<Favorite>{
     return this.http.get<Favorite>(this.baseUrl + `/${id}`);

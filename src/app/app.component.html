@@ -1,12 +1,15 @@
 <app-header></app-header>
+<div class="container">
+  @if (loggedIn && isActiveUser()) {
+    <router-outlet></router-outlet>
+  }
+  @else if(loggedIn &&isActiveUser() == false) {
+    <h1 class="text-center">You are no longer allowed access to the ticket help desk.</h1>
+    <p class="text-center">If this is a mistake, please reach out to a manager</p>
+  }
+  @else {
+    <h1 class="text-center">Please Login</h1>
+    <p class="text-center">Note: Logging in gives us permission to save your google id, name and your profile picture.</p>
+  }
+</div>
 
-@if (loggedIn && isActiveUser()) {
-  <router-outlet></router-outlet>
-}
-@else if(loggedIn &&isActiveUser() == false) {
-  <h1>You are no longer allowed access to the ticket help desk.</h1>
-  <p>If this is a mistake, please reach out to a manager</p>
-}
-@else {
-  <h1>Please Login</h1>
-}

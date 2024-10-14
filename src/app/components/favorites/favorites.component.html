@@ -1,15 +1,9 @@
-<app-ticket-form [categories]="allCategories" [user]="getCurrentUser()" (emitTicket)="addTicket($event)"></app-ticket-form>
-
-
-<br />
-@if (isItOrAdmin()) {
-    <h1>All Tickets</h1>
-}
-@else {
-    <h1>Your Tickets</h1>
-}
+<h1>Followed Tickets</h1>
 <button (click)="toggleDisplayTicket()">Toggle completed tickets</button>
 
+@if(tickets.length == 0){
+    <p>No tickets are followed</p>
+}
 
     @for (c of allCategories; track c.id) {
         <h2>{{ c.category1 }}</h2>
@@ -46,8 +40,3 @@
     }
 </table>
     }
-    
-
-
-
-

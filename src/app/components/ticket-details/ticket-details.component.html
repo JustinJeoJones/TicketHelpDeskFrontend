@@ -8,6 +8,7 @@
     <p>Resolution: {{ displayTicket.resolution }}</p>
 }
 
+<button (click)="favoriteTicket()">{{isFavoritedByUser() ? 'Unfollow ticket' : 'Follow ticket'}}</button>
 
 
 <br />

@@ -14,6 +14,9 @@ export class TicketsService {
   getAllTickets():Observable<Ticket[]>{
     return this.http.get<Ticket[]>(this.baseUrl);
   }
+  getAllTicketsByFavs(googleId:string):Observable<Ticket[]>{
+    return this.http.get<Ticket[]>(this.baseUrl + `/FavsByUser/${googleId}`);
+  }
   getTicketById(id:number):Observable<Ticket>{
     return this.http.get<Ticket>(this.baseUrl + `/${id}`);
   }

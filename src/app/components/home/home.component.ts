@@ -8,11 +8,12 @@ import { UserService } from '../../services/User/user.service';
 import { User } from '../../models/user';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [TicketFormComponent, FormsModule, RouterLink],
+  imports: [TicketFormComponent, FormsModule, RouterLink, DatePipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

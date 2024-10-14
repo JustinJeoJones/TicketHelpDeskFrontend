@@ -8,6 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/User/user.service';
 import { DatePipe } from '@angular/common';
 import { User } from '../../models/user';
+import { FavoritesService } from '../../services/Favorite/favorites.service';
+import { Favorite } from '../../models/favorite';
 
 @Component({
   selector: 'app-ticket-details',
@@ -20,13 +22,15 @@ export class TicketDetailsComponent {
   commentForm:Comment = {} as Comment;
   displayTicket:Ticket = {} as Ticket;
   comments:Comment[] = [];
-  constructor(private route:ActivatedRoute, private ticketService:TicketsService, private commentService: CommentsService, private userService:UserService){}
+  favorites:Favorite[] = [];
+  constructor(private route:ActivatedRoute, private ticketService:TicketsService, private commentService: CommentsService, private userService:UserService, private favoriteService:FavoritesService){}
 
   ngOnInit(){
     this.route.paramMap.subscribe(params => {
       let id:number = Number(params.get("id"));
       this.getTicket(id);
       this.getComments(id);
+      this.getFavorites();
     })
   }
 
@@ -67,6 +71,30 @@ export class TicketDetailsComponent {
       return true;
     }
     else if(current.role?.roleName == "Admin" || current.role?.roleName == "IT"){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  favoriteTicket(){
+    let newFavorite:Favorite = {} as Favorite;
+    newFavorite.ticketId = this.displayTicket.id;
+    newFavorite.userId = this.userService.currentUser?.googleId!;
+    this.favoriteService.addFavorite(newFavorite).subscribe(response => {
+      this.getFavorites();
+    });
+  }
+
+  getFavorites(){
+    this.favoriteService.getAllFavorites(this.userService.currentUser?.googleId!).subscribe(response => {
+      this.favorites = response;
+    })
+  }
+
+  isFavoritedByUser():boolean{
+    if(this.favorites.findIndex(f => f.ticketId == this.displayTicket.id) != -1){
       return true;
     }
     else{
